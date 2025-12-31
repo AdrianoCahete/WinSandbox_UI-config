@@ -5,8 +5,9 @@ export default defineNuxtConfig({
   
   modules: ['@nuxt/ui'],
   
-  // Enable pages directory for filesystem routing
-  pages: true,
+  future: {
+    compatibilityVersion: 4
+  },
   
   css: [],
   
