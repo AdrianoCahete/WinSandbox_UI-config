@@ -9,21 +9,40 @@
       <div class="mb-8">
         <UCard>
           <template #header>
-            <h2 class="text-lg font-semibold">Quick Profiles</h2>
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold">Quick Profiles</h2>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Selected:</span>
+                <span class="text-sm font-bold text-primary-600 dark:text-primary-400">
+                  {{ isCustomConfig ? 'Custom' : currentProfile }}
+                </span>
+              </div>
+            </div>
           </template>
-          <div class="flex gap-3">
+          <div class="flex gap-3 flex-wrap">
             <UButton 
               v-for="profileName in Object.keys(profiles)" 
               :key="profileName"
               @click="loadProfile(profileName)"
-              :variant="currentProfile === profileName ? 'solid' : 'outline'"
+              :variant="currentProfile === profileName && !isCustomConfig ? 'solid' : 'outline'"
               color="primary"
             >
               {{ profileName }}
             </UButton>
+            <UButton 
+              v-if="isCustomConfig"
+              variant="solid"
+              color="gray"
+              disabled
+            >
+              Custom
+            </UButton>
           </div>
-          <p v-if="currentProfile" class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+          <p v-if="!isCustomConfig && currentProfile" class="mt-3 text-sm text-gray-600 dark:text-gray-400">
             {{ profiles[currentProfile].description }}
+          </p>
+          <p v-else-if="isCustomConfig" class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+            Custom configuration - settings have been manually adjusted
           </p>
         </UCard>
       </div>
@@ -267,17 +286,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import propertiesData from '../data/properties.json'
 import defaultProfile from '../data/profiles/default.json'
 import secureProfile from '../data/profiles/secure.json'
 import communityProfile from '../data/profiles/community.json'
+import balancedProfile from '../data/profiles/balanced.json'
 
 // Load all profiles
 const profiles: Record<string, any> = {
   'Default': defaultProfile,
   'Secure': secureProfile,
-  'Community': communityProfile
+  'Community': communityProfile,
+  'Balanced': balancedProfile
 }
 
 // Configuration state - using Default profile values
@@ -308,6 +329,31 @@ const hasAdditionalFiles = computed(() => {
 
 // Current profile tracking
 const currentProfile = ref('Default')
+const isCustomConfig = ref(false)
+
+// Watch for config changes to detect custom modifications
+watch(config, (newConfig) => {
+  // Check if current config matches any profile
+  let matchesProfile = false
+  for (const [profileName, profile] of Object.entries(profiles)) {
+    const profileConfig = profile.config
+    const matches = Object.keys(profileConfig).every(key => {
+      return profileConfig[key] === newConfig[key]
+    })
+    if (matches) {
+      matchesProfile = true
+      if (currentProfile.value !== profileName) {
+        currentProfile.value = profileName
+        isCustomConfig.value = false
+      }
+      break
+    }
+  }
+  
+  if (!matchesProfile && !isCustomConfig.value) {
+    isCustomConfig.value = true
+  }
+}, { deep: true })
 
 // Info modal state
 const infoModalOpen = ref(false)
@@ -329,6 +375,7 @@ const loadProfile = (profileName: string) => {
   const profile = profiles[profileName]
   if (profile) {
     currentProfile.value = profileName
+    isCustomConfig.value = false
     config.value = { ...profile.config }
   }
 }
