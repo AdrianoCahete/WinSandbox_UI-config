@@ -1,0 +1,14 @@
+{
+  "name": "Secure",
+  "description": "Maximum security settings with minimal host interaction",
+  "config": {
+    "vGPU": "Disable",
+    "Networking": "Disable",
+    "AudioInput": "Disable",
+    "VideoInput": "Disable",
+    "ProtectedClient": "Enable",
+    "PrinterRedirection": "Disable",
+    "ClipboardRedirection": "Disable",
+    "MemoryInMB": 2048
+  }
+}
