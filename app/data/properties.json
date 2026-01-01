@@ -68,8 +68,26 @@
     "detailedInfo": "Specifies the amount of memory (in MB) to assign to the sandbox. Must be sufficient to boot Windows. If not specified, the sandbox uses a default based on available host memory.",
     "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#memory-in-mb",
     "type": "number",
-    "min": 1024,
+    "min": 2048,
     "max": 16384,
     "default": 4096
+  },
+  "MappedFolders": {
+    "label": "Mapped Folders",
+    "description": "Share folders from the host with the sandbox. You can add multiple folder mappings.",
+    "detailedInfo": "Share folders from the host with read or write permissions. Beginning in Windows 11, version 23H2, you can use environment variables in the path (e.g., %USERPROFILE%, %TEMP%, %ProgramFiles%).",
+    "warning": "Exposing host directories might allow malicious software to affect the system or steal data. Files and folders mapped from the host can be compromised by apps in the sandbox or potentially affect the host.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#mapped-folders",
+    "type": "array",
+    "itemType": "folder-mapping",
+    "default": []
+  },
+  "LogonCommand": {
+    "label": "Logon Command",
+    "description": "A command that will be executed automatically when the sandbox starts.",
+    "detailedInfo": "Specifies a single command that will be invoked automatically after the sandbox logs on. For complex scenarios involving multiple steps, place them into a script file, map it via a shared folder, and execute it via LogonCommand.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#logon-command",
+    "type": "command",
+    "default": ""
   }
 }

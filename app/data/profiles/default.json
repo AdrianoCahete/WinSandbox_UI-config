@@ -9,6 +9,8 @@
     "ProtectedClient": "Disable",
     "PrinterRedirection": "Disable",
     "ClipboardRedirection": "Enable",
-    "MemoryInMB": 4096
+    "MemoryInMB": 4096,
+    "MappedFolders": [],
+    "LogonCommand": ""
   }
 }
