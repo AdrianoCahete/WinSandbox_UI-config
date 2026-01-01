@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "nuxtr.nuxtr-vscode",
+    "nuxtr.nuxt-vscode-extentions",
+    "vue.volar",
+    "dbaeumer.vscode-eslint",
+    "editorconfig.editorconfig"
+  ]
+}
