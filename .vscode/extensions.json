@@ -4,6 +4,8 @@
     "nuxtr.nuxt-vscode-extentions",
     "vue.volar",
     "dbaeumer.vscode-eslint",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "bradlc.vscode-tailwindcss",
+    "gruntfuggly.todo-tree"
   ]
 }
