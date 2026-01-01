@@ -1,0 +1,14 @@
+{
+  "name": "Community",
+  "description": "Balanced configuration for general usage and testing",
+  "config": {
+    "vGPU": "Enable",
+    "Networking": "Enable",
+    "AudioInput": "Enable",
+    "VideoInput": "Disable",
+    "ProtectedClient": "Disable",
+    "PrinterRedirection": "Enable",
+    "ClipboardRedirection": "Enable",
+    "MemoryInMB": 4096
+  }
+}

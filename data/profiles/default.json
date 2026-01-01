@@ -1,0 +1,14 @@
+{
+  "name": "Default",
+  "description": "Microsoft's default Windows Sandbox configuration",
+  "config": {
+    "vGPU": "Disable",
+    "Networking": "Enable",
+    "AudioInput": "Disable",
+    "VideoInput": "Disable",
+    "ProtectedClient": "Disable",
+    "PrinterRedirection": "Disable",
+    "ClipboardRedirection": "Enable",
+    "MemoryInMB": 4096
+  }
+}

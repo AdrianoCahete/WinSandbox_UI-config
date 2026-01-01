@@ -1,0 +1,75 @@
+{
+  "vGPU": {
+    "label": "vGPU (Virtual GPU)",
+    "description": "Enable or disable GPU virtualization sharing. When enabled, the sandbox can share the host's GPU for hardware acceleration.",
+    "detailedInfo": "Enables or disables GPU sharing with the sandbox. This allows graphics-intensive applications to run more smoothly by leveraging the host's GPU.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#vgpu",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Disable"
+  },
+  "Networking": {
+    "label": "Networking",
+    "description": "Control network access for the sandbox. When disabled, the sandbox will have no network connectivity.",
+    "detailedInfo": "Controls whether the sandbox has network access. Disabling networking provides additional isolation but prevents internet-based operations.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#networking",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Enable"
+  },
+  "AudioInput": {
+    "label": "Audio Input",
+    "description": "Control whether the sandbox can access the host's microphone.",
+    "detailedInfo": "Enables or disables audio input sharing with the sandbox. When enabled, applications in the sandbox can access your microphone.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#audio-input",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Disable"
+  },
+  "VideoInput": {
+    "label": "Video Input",
+    "description": "Control whether the sandbox can access the host's camera.",
+    "detailedInfo": "Enables or disables video input sharing with the sandbox. When enabled, applications in the sandbox can access your webcam.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#video-input",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Disable"
+  },
+  "ProtectedClient": {
+    "label": "Protected Client",
+    "description": "Adds additional security hardening to the sandbox. When enabled, provides extra isolation for sensitive operations.",
+    "detailedInfo": "Increases security by adding extra layers of protection. Recommended for handling untrusted content or running potentially malicious software.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#protected-client",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Disable"
+  },
+  "PrinterRedirection": {
+    "label": "Printer Redirection",
+    "description": "Control whether the sandbox can access the host's printers.",
+    "detailedInfo": "Enables or disables printer sharing with the sandbox. When enabled, you can print from applications running in the sandbox.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#printer-redirection",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Disable"
+  },
+  "ClipboardRedirection": {
+    "label": "Clipboard Redirection",
+    "description": "Control clipboard sharing between the sandbox and the host.",
+    "detailedInfo": "Enables or disables clipboard sharing. When enabled, you can copy and paste content between the host and the sandbox.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#clipboard-redirection",
+    "type": "toggle",
+    "values": ["Enable", "Disable"],
+    "default": "Enable"
+  },
+  "MemoryInMB": {
+    "label": "Memory (MB)",
+    "description": "Amount of memory to allocate to the sandbox in megabytes.",
+    "detailedInfo": "Specifies the amount of memory (in MB) to assign to the sandbox. Must be sufficient to boot Windows. If not specified, the sandbox uses a default based on available host memory.",
+    "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#memory-in-mb",
+    "type": "number",
+    "min": 1024,
+    "max": 16384,
+    "default": 4096
+  }
+}

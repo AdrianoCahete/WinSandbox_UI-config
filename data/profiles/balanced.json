@@ -1,0 +1,14 @@
+{
+  "name": "Balanced",
+  "description": "Balanced security with essential features enabled - recommended for most users",
+  "config": {
+    "vGPU": "Enable",
+    "Networking": "Enable",
+    "AudioInput": "Disable",
+    "VideoInput": "Disable",
+    "ProtectedClient": "Enable",
+    "PrinterRedirection": "Disable",
+    "ClipboardRedirection": "Enable",
+    "MemoryInMB": 4096
+  }
+}
