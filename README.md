@@ -1,59 +1,48 @@
-# Windows Sandbox UI Configuration
+# Windows Sandbox Web UI Config
 
-A modern web application built with Nuxt 4 for generating Windows Sandbox configuration files.
-
-## Features
-
-- 🎨 Built with Nuxt 4 and NuxtUI
-- ⚡ Real-time XML configuration generation
-- 🎛️ Interactive toggle controls for sandbox settings
-- 📋 Copy to clipboard functionality
-- 📱 Responsive two-column layout
-
-## Prerequisites
-
-- Node.js 18.x or higher
-- npm or yarn
-
-## Installation
-
-```bash
-# Install dependencies
-npm install
-```
+A simple web app built for generate **Windows Sandbox** configuration files (.wsb).
 
 ## Development
 
 ```bash
-# Start development server
-npm run dev
-```
-
-The application will be available at `http://localhost:3000`
-
-## Build
-
-```bash
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm i && npm run dev
 ```
 
 ## Configuration Options
 
-The application provides controls for three Windows Sandbox settings:
+The application provides controls for Windows Sandbox settings:
 
-1. **vGPU (Virtual GPU)** - Enable/disable GPU virtualization sharing
-2. **Networking** - Control network access for the sandbox
-3. **Protected Client** - Add additional security hardening
+1. **vGPU (Virtual GPU)** - Enable or disable GPU virtualization sharing. When enabled, the sandbox can share the host's GPU for hardware acceleration. *(Default: Disable, Options: Enable/Disable)*
+2. **Networking** - Control network access for the sandbox. When disabled, the sandbox will have no network connectivity. *(Default: Enable, Options: Enable/Disable)*
+3. **Audio Input** - Control whether the sandbox can access the host's microphone. *(Default: Disable, Options: Enable/Disable)*
+4. **Video Input** - Control whether the sandbox can access the host's camera. *(Default: Disable, Options: Enable/Disable)*
+5. **Protected Client** - Adds additional security hardening to the sandbox. When enabled, provides extra isolation for sensitive operations. *(Default: Disable, Options: Enable/Disable)*
+6. **Printer Redirection** - Control whether the sandbox can access the host's printers. *(Default: Disable, Options: Enable/Disable)*
+7. **Clipboard Redirection** - Control clipboard sharing between the sandbox and the host. *(Default: Enable, Options: Enable/Disable)*
+8. **Memory (MB)** - Amount of memory to allocate to the sandbox in megabytes. *(Default: 4096 MB, Range: 1024-16384)*
 
-## Technology Stack
+> **Source:** [Microsoft Windows Sandbox Configuration Documentation](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file)
 
-- Nuxt 4.2.2
-- NuxtUI 3.3.7
-- Vue 3.5.26
-- Sass 1.93.3
-- Sass-embedded 1.93.3
-- Tailwind CSS (via NuxtUI)
+### Profiles
+
+The application includes pre-configured profiles for different use cases:
+
+| Property | Default (MS) | Balanced | Community | Secure | Options |
+|----------|-------------|----------|-----------|--------|---------|
+| **vGPU** | ❌ Disable | ✅ Enable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
+| **Networking** | ✅ Enable | ✅ Enable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
+| **AudioInput** | ❌ Disable | ❌ Disable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
+| **VideoInput** | ❌ Disable | ❌ Disable | ❌ Disable | ❌ Disable | ✅ Enable / ❌ Disable |
+| **ProtectedClient** | ❌ Disable | ✅ Enable | ❌ Disable | ✅ Enable | ✅ Enable / ❌ Disable |
+| **PrinterRedirection** | ❌ Disable | ❌ Disable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
+| **ClipboardRedirection** | ✅ Enable | ✅ Enable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
+| **MemoryInMB** | 4096 | 4096 | 4096 | 2048 | 1024-16384 |
+
+**Profile Descriptions:**
+- **Default**: Microsoft's default Windows Sandbox configuration
+- **Balanced**: Balanced security with essential features enabled - recommended for most users
+- **Community**: Balanced configuration for general usage and testing
+- **Secure**: Maximum security settings with minimal host interaction
+
+## Made with
+- Nuxt + NuxtUI
