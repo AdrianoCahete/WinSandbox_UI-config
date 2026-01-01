@@ -1,0 +1,22 @@
+{
+  "winget": {
+    "label": "Install winget (Windows Package Manager)",
+    "enabled": false
+  },
+  "msstore": {
+    "label": "Install Microsoft Store",
+    "enabled": false
+  },
+  "vscode": {
+    "label": "Install Visual Studio Code",
+    "enabled": false
+  },
+  "git": {
+    "label": "Install Git",
+    "enabled": false
+  },
+  "chrome": {
+    "label": "Install Google Chrome",
+    "enabled": false
+  }
+}
