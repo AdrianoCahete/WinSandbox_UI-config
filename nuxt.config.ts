@@ -1,23 +1,26 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
-  
-  modules: ['@nuxt/ui'],
-  
+  compatibilityDate: "2024-04-03",
+
+  modules: ["@nuxt/ui"],
+
   future: {
-    compatibilityVersion: 4
+    compatibilityVersion: 4,
   },
-  
-  css: [],
-  
+
+  routeRules: {
+    "/": { prerender: true },
+  },
+
   app: {
     head: {
-      title: 'Windows Sandbox UI Config',
+      title: "Windows Sandbox UI Config",
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-      ]
-    }
-  }
-})
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+      ],
+    },
+  },
+  css: ["~/assets/css/main.css"],
+  devtools: { enabled: true },
+});
