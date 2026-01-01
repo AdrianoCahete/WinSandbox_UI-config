@@ -79,22 +79,22 @@
                 :key="propKey"
                 class="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0 last:pb-2"
               >
-                <div class="flex flex-col justify-between">
-                  <div class="flex justify-between items-center gap-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex-1">
                     <label
-                      class="text-base font-medium text-gray-900 dark:text-white"
+                      class="text-base font-medium text-gray-900 dark:text-white block mb-1"
                     >
                       {{ propData.label }}
                     </label>
-                    <USelectMenu
-                      v-model="config[propKey]"
-                      :options="propData.values"
-                      class="w-32"
-                    />
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                      {{ propData.description }}
+                    </p>
                   </div>
-                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                    {{ propData.description }}
-                  </p>
+                  <USwitch
+                    v-model="config[propKey]"
+                    :model-value="config[propKey] === 'Enable'"
+                    @update:model-value="(value) => config[propKey] = value ? 'Enable' : 'Disable'"
+                  />
                 </div>
               </div>
 
@@ -118,6 +118,124 @@
                 <p class="text-sm text-gray-500 dark:text-gray-400">
                   {{ propertiesData.MemoryInMB.description }}
                 </p>
+              </div>
+
+              <!-- Mapped Folders -->
+              <div class="pb-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <label class="text-base font-medium text-gray-900 dark:text-white">
+                      {{ propertiesData.MappedFolders.label }}
+                    </label>
+                    <UIcon
+                      v-if="hasEmptyMappedFolders"
+                      name="i-heroicons-exclamation-triangle"
+                      class="w-4 h-4 text-yellow-500"
+                    />
+                  </div>
+                  <UButton
+                    @click="addMappedFolder"
+                    icon="i-heroicons-plus"
+                    size="xs"
+                    color="primary"
+                  >
+                    Add Folder
+                  </UButton>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                  {{ propertiesData.MappedFolders.description }}
+                </p>
+                <UAlert
+                  v-if="propertiesData.MappedFolders.warning"
+                  icon="i-heroicons-exclamation-triangle"
+                  color="yellow"
+                  variant="soft"
+                  class="mb-3"
+                  :title="'Security Warning'"
+                  :description="propertiesData.MappedFolders.warning"
+                />
+                <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">
+                  💡 Windows 11 23H2+: You can use environment variables like %USERPROFILE%, %TEMP%, %ProgramFiles%
+                </p>
+
+                <div v-if="config.MappedFolders.length > 0" class="space-y-3">
+                  <div
+                    v-for="(folder, index) in config.MappedFolders"
+                    :key="index"
+                    class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                  >
+                    <div class="flex items-start gap-2">
+                      <div class="flex-1 space-y-2">
+                        <div>
+                          <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                            Host Folder
+                          </label>
+                          <UInput
+                            v-model="folder.HostFolder"
+                            placeholder="C:\\Users\\%USERNAME%\\Documents"
+                            class="mt-1"
+                            @change="checkForCustomConfig"
+                          />
+                        </div>
+                        <div>
+                          <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                            Sandbox Folder (optional)
+                          </label>
+                          <UInput
+                            v-model="folder.SandboxFolder"
+                            placeholder="C:\\Users\\WDAGUtilityAccount\\Desktop\\Documents"
+                            class="mt-1"
+                            @change="checkForCustomConfig"
+                          />
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <UCheckbox
+                            v-model="folder.ReadOnly"
+                            @change="checkForCustomConfig"
+                          />
+                          <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                            Read-only (recommended for security)
+                          </label>
+                        </div>
+                      </div>
+                      <UButton
+                        @click="removeMappedFolder(index)"
+                        icon="i-heroicons-trash"
+                        size="xs"
+                        color="red"
+                        variant="ghost"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p v-else class="text-sm text-gray-400 dark:text-gray-500 italic">
+                  No folders mapped. Click "Add Folder" to share folders with the sandbox.
+                </p>
+              </div>
+
+              <!-- Logon Command -->
+              <div class="pb-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+                <div class="flex items-center gap-2 mb-2">
+                  <label class="text-base font-medium text-gray-900 dark:text-white">
+                    {{ propertiesData.LogonCommand.label }}
+                  </label>
+                  <UIcon
+                    v-if="hasEmptyLogonCommand"
+                    name="i-heroicons-exclamation-triangle"
+                    class="w-4 h-4 text-yellow-500"
+                  />
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                  {{ propertiesData.LogonCommand.description }}
+                </p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">
+                  {{ propertiesData.LogonCommand.detailedInfo }}
+                </p>
+                <UInput
+                  v-model="config.LogonCommand"
+                  placeholder='C:\\Users\\WDAGUtilityAccount\\Desktop\\script.bat'
+                  @change="checkForCustomConfig"
+                />
               </div>
 
               <!-- Third-Party Software Installation -->
@@ -301,6 +419,41 @@ const toggleProperties = computed(() => {
   return props;
 });
 
+// Computed for validation warnings
+const hasEmptyMappedFolders = computed(() => {
+  return config.value.MappedFolders.some(
+    (folder: any) => !folder.HostFolder || folder.HostFolder.trim() === ""
+  );
+});
+
+const hasEmptyLogonCommand = computed(() => {
+  return (
+    config.value.LogonCommand &&
+    config.value.LogonCommand.trim() === ""
+  );
+});
+
+// Functions for Mapped Folders
+const addMappedFolder = () => {
+  const isSecureProfile = currentProfile.value === "Secure" || currentProfile.value === "Balanced";
+  config.value.MappedFolders.push({
+    HostFolder: "",
+    SandboxFolder: "",
+    ReadOnly: isSecureProfile,
+  });
+  checkForCustomConfig();
+};
+
+const removeMappedFolder = (index: number) => {
+  config.value.MappedFolders.splice(index, 1);
+  checkForCustomConfig();
+};
+
+const checkForCustomConfig = () => {
+  // Trigger the watch to check if config matches any profile
+  config.value = { ...config.value };
+};
+
 const loadProfile = (profileName: string) => {
   const profile = profiles[profileName];
   if (profile) {
@@ -316,9 +469,39 @@ const generatedConfig = computed(() => {
   xml += '<Configuration>\n';
 
   for (const [key, value] of Object.entries(config.value)) {
+    if (key === 'MappedFolders' || key === 'LogonCommand') {
+      continue;
+    }
+
     if (value !== null && value !== undefined) {
       xml += `  <${key}>${value}</${key}>\n`;
     }
+  }
+
+  // Handle MappedFolders
+  const mappedFolders = config.value.MappedFolders.filter(
+    (folder: any) => folder.HostFolder && folder.HostFolder.trim() !== ''
+  );
+
+  if (mappedFolders.length > 0) {
+    xml += '  <MappedFolders>\n';
+    for (const folder of mappedFolders) {
+      xml += '    <MappedFolder>\n';
+      xml += `      <HostFolder>${folder.HostFolder}</HostFolder>\n`;
+      if (folder.SandboxFolder && folder.SandboxFolder.trim() !== '') {
+        xml += `      <SandboxFolder>${folder.SandboxFolder}</SandboxFolder>\n`;
+      }
+      xml += `      <ReadOnly>${folder.ReadOnly === true ? 'true' : 'false'}</ReadOnly>\n`;
+      xml += '    </MappedFolder>\n';
+    }
+    xml += '  </MappedFolders>\n';
+  }
+
+  // Handle LogonCommand
+  if (config.value.LogonCommand && config.value.LogonCommand.trim() !== '') {
+    xml += '  <LogonCommand>\n';
+    xml += `    <Command>${config.value.LogonCommand}</Command>\n`;
+    xml += '  </LogonCommand>\n';
   }
 
   xml += "</Configuration>";
