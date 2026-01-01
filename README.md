@@ -20,6 +20,8 @@ The application provides controls for Windows Sandbox settings:
 6. **Printer Redirection** - Control whether the sandbox can access the host's printers. *(Default: Disable, Options: Enable/Disable)*
 7. **Clipboard Redirection** - Control clipboard sharing between the sandbox and the host. *(Default: Enable, Options: Enable/Disable)*
 8. **Memory (MB)** - Amount of memory to allocate to the sandbox in megabytes. *(Default: 4096 MB, Range: 1024-16384)*
+9. **Mapped Folders** - Share folders from the host with the sandbox. Supports multiple folder mappings with read/write permissions and environment variables (Windows 11 23H2+)
+10. **Logon Command** - A command that executes automatically when the sandbox starts
 
 > **Source:** [Microsoft Windows Sandbox Configuration Documentation](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file)
 
@@ -37,6 +39,8 @@ The application includes pre-configured profiles for different use cases:
 | **PrinterRedirection** | ❌ Disable | ❌ Disable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
 | **ClipboardRedirection** | ✅ Enable | ✅ Enable | ✅ Enable | ❌ Disable | ✅ Enable / ❌ Disable |
 | **MemoryInMB** | 4096 | 4096 | 4096 | 2048 | 1024-16384 |
+| **MappedFolders** | [] | [] | [] | [] | Custom array |
+| **LogonCommand** | Empty | Empty | Empty | Empty | Custom command |
 
 **Profile Descriptions:**
 - **Default**: Microsoft's default Windows Sandbox configuration
