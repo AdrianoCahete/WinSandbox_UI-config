@@ -148,13 +148,14 @@
                 <UAlert
                   v-if="propertiesData.MappedFolders.warning"
                   icon="i-heroicons-exclamation-triangle"
-                  color="yellow"
-                  variant="soft"
+                  color="warning"
+                  variant="subtle"
                   class="mb-3"
-                  :title="'Security Warning'"
+                  title="Security Warning"
                   :description="propertiesData.MappedFolders.warning"
                 />
                 <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">
+                  <!-- TODO: Make it easier drag&drop the variables into the input fields -->
                   💡 Windows 11 23H2+: You can use environment variables like %USERPROFILE%, %TEMP%, %ProgramFiles%
                 </p>
 
@@ -173,18 +174,18 @@
                           <UInput
                             v-model="folder.HostFolder"
                             placeholder="C:\\Users\\%USERNAME%\\Documents"
-                            class="mt-1"
+                            class="mt-1 w-full"
                             @change="checkForCustomConfig"
                           />
                         </div>
                         <div>
                           <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
-                            Sandbox Folder (optional)
+                            Sandbox Folder
                           </label>
                           <UInput
                             v-model="folder.SandboxFolder"
                             placeholder="C:\\Users\\WDAGUtilityAccount\\Desktop\\Documents"
-                            class="mt-1"
+                            class="mt-1 w-full"
                             @change="checkForCustomConfig"
                           />
                         </div>
@@ -192,17 +193,15 @@
                           <UCheckbox
                             v-model="folder.ReadOnly"
                             @change="checkForCustomConfig"
+                            label="Read-only (recommended for security)"
                           />
-                          <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
-                            Read-only (recommended for security)
-                          </label>
                         </div>
                       </div>
                       <UButton
                         @click="removeMappedFolder(index)"
                         icon="i-heroicons-trash"
                         size="xs"
-                        color="red"
+                        color="error"
                         variant="ghost"
                       />
                     </div>
@@ -233,8 +232,9 @@
                 </p>
                 <UInput
                   v-model="config.LogonCommand"
-                  placeholder='C:\\Users\\WDAGUtilityAccount\\Desktop\\script.bat'
+                  placeholder='C:\Users\WDAGUtilityAccount\Desktop\script.ps1'
                   @change="checkForCustomConfig"
+                  class="w-full"
                 />
               </div>
 
