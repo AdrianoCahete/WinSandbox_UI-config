@@ -69,7 +69,6 @@
     "docUrl": "https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#memory-in-mb",
     "type": "number",
     "min": 2048,
-    "max": 16384,
     "default": 4096
   },
   "MappedFolders": {
