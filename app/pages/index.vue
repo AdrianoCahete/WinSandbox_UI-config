@@ -1,23 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <UHeader>
-      <template #left>
-        <h1 class="text-xl font-bold">Windows Sandbox Configuration</h1>
-      </template>
-      <template #right>
-        <div class="flex items-center gap-3">
-          <UColorModeButton />
-          <UButton
-            to="https://github.com/AdrianoCahete/WinSandbox_UI-config"
-            target="_blank"
-            icon="i-simple-icons-github"
-            variant="ghost"
-            color="neutral"
-            aria-label="GitHub Repository"
-          />
-        </div>
-      </template>
-    </UHeader>
+    <AppHeader />
 
     <UContainer class="py-8">
       <div class="mb-8">
@@ -343,18 +326,7 @@
       </div>
     </UContainer>
 
-    <UFooter class="mt-0 border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
-      <template #left>
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-          Created by <ULink href="https://adrianocahete.dev" as="a" prefetchOn="visibility" external>Adriano Cahete</ULink>
-        </p>
-      </template>
-      <template #right>
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-          Built with Nuxt + NuxtUI
-        </p>
-      </template>
-    </UFooter>
+    <AppFooter />
   </div>
 </template>
 
