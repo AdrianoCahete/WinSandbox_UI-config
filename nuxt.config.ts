@@ -20,7 +20,16 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
       ],
     },
+    pageTransition: { name: "page", mode: "out-in" },
+    layoutTransition: { name: "layout", mode: "out-in" },
   },
+
+  router: {
+    options: {
+      scrollBehaviorType: "smooth",
+    },
+  },
+
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
 });
