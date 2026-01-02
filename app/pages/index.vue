@@ -1,28 +1,27 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <UContainer class="py-8">
-      <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-        Windows Sandbox Configuration
-      </h1>
+    <UHeader>
+      <template #left>
+        <h1 class="text-xl font-bold">Windows Sandbox Configuration</h1>
+      </template>
+      <template #right>
+        <div class="flex items-center gap-3">
+          <UColorModeButton />
+          <UButton
+            to="https://github.com/AdrianoCahete/WinSandbox_UI-config"
+            target="_blank"
+            icon="i-simple-icons-github"
+            variant="ghost"
+            color="neutral"
+            aria-label="GitHub Repository"
+          />
+        </div>
+      </template>
+    </UHeader>
 
+    <UContainer class="py-8">
       <div class="mb-8">
         <UCard>
-          <template #header>
-            <div class="flex items-center justify-between">
-              <h2 class="text-lg font-semibold">Quick Profiles</h2>
-              <div class="flex items-center justify-between gap-2">
-                <span
-                  class="text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >Selected:</span
-                >
-                <span
-                  class="text-sm font-bold text-primary-600 dark:text-primary-400"
-                >
-                  {{ isCustomConfig ? "Custom" : currentProfile }}
-                </span>
-              </div>
-            </div>
-          </template>
           <div class="flex gap-3 flex-wrap">
             <UFieldGroup orientation="horizontal">
               <UButton
@@ -52,13 +51,13 @@
 
           <p
             v-if="!isCustomConfig && currentProfile"
-            class="mt-3 text-sm text-gray-600 dark:text-gray-400"
+            class="mt-2 text-sm text-gray-600 dark:text-gray-400"
           >
             {{ profiles[currentProfile].description }}
           </p>
           <p
             v-else-if="isCustomConfig"
-            class="mt-3 text-sm text-gray-600 dark:text-gray-400"
+            class="mt-2 text-sm text-gray-600 dark:text-gray-400"
           >
             Custom configuration - settings have been manually adjusted
           </p>
@@ -69,15 +68,11 @@
         <!-- Left Panel - Form -->
         <div class="space-y-6">
           <UCard>
-            <template #header>
-              <h2 class="text-xl font-semibold">Options</h2>
-            </template>
-
             <div class="space-y-6">
               <div
                 v-for="(propData, propKey) in toggleProperties"
                 :key="propKey"
-                class="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0 last:pb-2"
+                class="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0"
               >
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
@@ -90,26 +85,25 @@
                       {{ propData.description }}
                     </p>
                   </div>
-                  <USwitch
-                    v-model="config[propKey]"
-                  />
+                  <USwitch v-model="config[propKey]" />
                 </div>
               </div>
 
               <!-- Memory Option -->
-              <div class="pb-6">
+              <div class="pb-0">
                 <div class="flex items-center justify-between mb-2">
                   <label
                     class="text-base font-medium text-gray-900 dark:text-white"
                   >
                     {{ propertiesData.MemoryInMB.label }}
                   </label>
-                  <UInput
-                    v-model.number="config.MemoryInMB"
-                    type="number"
+                  <UInputNumber
+                    v-model="config.MemoryInMB"
+                    :default-value="config.MemoryInMB"
+                    :formatOptions="{ style: 'unit', unit: 'megabyte' }"
                     :min="propertiesData.MemoryInMB.min"
-                    :max="propertiesData.MemoryInMB.max"
-                    class="w-32"
+                    class="w-2/5"
+                    :step="256"
                   />
                 </div>
                 <p class="text-sm text-gray-500 dark:text-gray-400">
@@ -118,10 +112,14 @@
               </div>
 
               <!-- Mapped Folders -->
-              <div class="pb-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+              <div
+                class="border-t border-gray-200 dark:border-gray-700 pt-6"
+              >
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2">
-                    <label class="text-base font-medium text-gray-900 dark:text-white">
+                    <label
+                      class="text-base font-medium text-gray-900 dark:text-white"
+                    >
                       {{ propertiesData.MappedFolders.label }}
                     </label>
                     <UIcon
@@ -152,7 +150,8 @@
                   :description="propertiesData.MappedFolders.warning"
                 />
                 <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">
-                  💡 Windows 11 23H2+: You can use environment variables like %USERPROFILE%, %TEMP%, %ProgramFiles%
+                  💡 Windows 11 23H2+: You can use environment variables like
+                  %USERPROFILE%, %TEMP%, %ProgramFiles%
                 </p>
 
                 <div v-if="config.MappedFolders.length > 0" class="space-y-3">
@@ -164,7 +163,9 @@
                     <div class="flex items-start gap-2">
                       <div class="flex-1 space-y-2">
                         <div>
-                          <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                          <label
+                            class="text-xs font-medium text-gray-600 dark:text-gray-400"
+                          >
                             Host Folder
                           </label>
                           <UInput
@@ -175,7 +176,9 @@
                           />
                         </div>
                         <div>
-                          <label class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                          <label
+                            class="text-xs font-medium text-gray-600 dark:text-gray-400"
+                          >
                             Sandbox Folder
                           </label>
                           <UInput
@@ -203,15 +206,16 @@
                     </div>
                   </div>
                 </div>
-                <p v-else class="text-sm text-gray-400 dark:text-gray-500 italic">
-                  No folders mapped. Click "Add Folder" to share folders with the sandbox.
-                </p>
               </div>
 
               <!-- Logon Command -->
-              <div class="pb-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+              <div
+                class="border-t border-gray-200 dark:border-gray-700 pt-6"
+              >
                 <div class="flex items-center gap-2 mb-2">
-                  <label class="text-base font-medium text-gray-900 dark:text-white">
+                  <label
+                    class="text-base font-medium text-gray-900 dark:text-white"
+                  >
                     {{ propertiesData.LogonCommand.label }}
                   </label>
                   <UIcon
@@ -228,7 +232,7 @@
                 </p>
                 <UInput
                   v-model="config.LogonCommand"
-                  placeholder='C:\Users\WDAGUtilityAccount\Desktop\script.ps1'
+                  placeholder="C:\Users\WDAGUtilityAccount\Desktop\script.ps1"
                   @change="checkForCustomConfig"
                   class="w-full"
                 />
@@ -266,7 +270,6 @@
                   </div>
                 </div>
               </div> -->
-
             </div>
           </UCard>
         </div>
@@ -275,7 +278,7 @@
         <div>
           <UCard class="sticky top-8">
             <template #header>
-              <h2 class="text-xl font-semibold">Generated Configuration</h2>
+              <h2 class="text-xl font-semibold">Generated Config</h2>
             </template>
 
             <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
@@ -284,24 +287,15 @@
                 >{{ generatedConfig }}</pre
               >
             </div>
-
             <template #footer>
-              <div class="flex justify-end gap-2">
-                <UButton
-                  @click="copyToClipboard"
-                  icon="i-heroicons-clipboard-document"
-                  variant="outline"
-                >
-                  Copy to Clipboard
-                </UButton>
-              </div>
+              <p class="text-muted text-xs">You can copy or download this file in the <ULink to="#download-files">end of the page</ULink></p>
             </template>
           </UCard>
         </div>
       </div>
 
       <!-- Download Button -->
-      <div class="mt-6">
+      <div class="mt-4" id="download-files">
         <UCard>
           <div class="flex flex-col items-center gap-4">
             <div class="flex items-center gap-3">
@@ -312,6 +306,15 @@
                 color="primary"
               >
                 Download Configuration (.wsb)
+              </UButton>
+
+              <UButton
+                @click="copyToClipboard"
+                icon="i-heroicons-clipboard-document"
+                variant="outline"
+                size="lg"
+              >
+                Copy to Clipboard
               </UButton>
 
               <!-- <UButton
@@ -339,6 +342,19 @@
         </UCard>
       </div>
     </UContainer>
+
+    <UFooter class="mt-0 border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
+      <template #left>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Created by <ULink href="https://adrianocahete.dev" as="a" prefetchOn="visibility" external>Adriano Cahete</ULink>
+        </p>
+      </template>
+      <template #right>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Built with Nuxt + NuxtUI
+        </p>
+      </template>
+    </UFooter>
   </div>
 </template>
 
@@ -353,10 +369,10 @@ import secureProfile from "../data/profiles/secure.json";
 import propertiesData from "../data/properties.json";
 
 const profiles: Record<string, any> = {
-  Default: defaultProfile,
+  Balanced: balancedProfile,
   Secure: secureProfile,
   Community: communityProfile,
-  Balanced: balancedProfile,
+  Default: defaultProfile,
 };
 
 const config = ref({ ...defaultProfile.config });
@@ -384,10 +400,15 @@ watch(
     for (const [profileName, profile] of Object.entries(profiles)) {
       const profileConfig = profile.config;
       const matches = Object.keys(profileConfig).every((key) => {
-        if (key === 'MappedFolders' || key === 'LogonCommand') {
+        if (key === "MappedFolders" || key === "LogonCommand") {
           return true;
         }
-        const profileValue = profileConfig[key] === 'Enable' ? true : profileConfig[key] === 'Disable' ? false : profileConfig[key];
+        const profileValue =
+          profileConfig[key] === "Enable"
+            ? true
+            : profileConfig[key] === "Disable"
+            ? false
+            : profileConfig[key];
         return profileValue === newConfig[key];
       });
       if (matches) {
@@ -423,15 +444,13 @@ const hasEmptyMappedFolders = computed(() => {
 });
 
 const hasEmptyLogonCommand = computed(() => {
-  return (
-    config.value.LogonCommand &&
-    config.value.LogonCommand.trim() === ""
-  );
+  return config.value.LogonCommand && config.value.LogonCommand.trim() === "";
 });
 
 // Functions for Mapped Folders
 const addMappedFolder = () => {
-  const isSecureProfile = currentProfile.value === "Secure" || currentProfile.value === "Balanced";
+  const isSecureProfile =
+    currentProfile.value === "Secure" || currentProfile.value === "Balanced";
   config.value.MappedFolders.push({
     HostFolder: "",
     SandboxFolder: "",
@@ -456,9 +475,9 @@ const loadProfile = (profileName: string) => {
     isCustomConfig.value = false;
     const profileConfig = { ...profile.config };
     for (const [key, value] of Object.entries(profileConfig)) {
-      if (value === 'Enable') {
+      if (value === "Enable") {
         profileConfig[key] = true;
-      } else if (value === 'Disable') {
+      } else if (value === "Disable") {
         profileConfig[key] = false;
       }
     }
@@ -467,42 +486,46 @@ const loadProfile = (profileName: string) => {
 };
 
 const generatedConfig = computed(() => {
-  let xml = '<!-- Generated by Windows Sandbox Web Config Tool - https://github.com/AdrianoCahete/WinSandbox_UI-config -->\n';
-  xml += '<Configuration>\n';
+  let xml =
+    "<!-- Generated by Windows Sandbox Web Config Tool - https://github.com/AdrianoCahete/WinSandbox_UI-config -->\n";
+  xml += "<Configuration>\n";
 
   for (const [key, value] of Object.entries(config.value)) {
-    if (key === 'MappedFolders' || key === 'LogonCommand') {
+    if (key === "MappedFolders" || key === "LogonCommand") {
       continue;
     }
 
     if (value !== null && value !== undefined) {
-      const outputValue = typeof value === 'boolean' ? (value ? 'Enable' : 'Disable') : value;
+      const outputValue =
+        typeof value === "boolean" ? (value ? "Enable" : "Disable") : value;
       xml += `  <${key}>${outputValue}</${key}>\n`;
     }
   }
 
   const mappedFolders = config.value.MappedFolders.filter(
-    (folder: any) => folder.HostFolder && folder.HostFolder.trim() !== ''
+    (folder: any) => folder.HostFolder && folder.HostFolder.trim() !== ""
   );
 
   if (mappedFolders.length > 0) {
-    xml += '  <MappedFolders>\n';
+    xml += "  <MappedFolders>\n";
     for (const folder of mappedFolders) {
-      xml += '    <MappedFolder>\n';
+      xml += "    <MappedFolder>\n";
       xml += `      <HostFolder>${folder.HostFolder}</HostFolder>\n`;
-      if (folder.SandboxFolder && folder.SandboxFolder.trim() !== '') {
+      if (folder.SandboxFolder && folder.SandboxFolder.trim() !== "") {
         xml += `      <SandboxFolder>${folder.SandboxFolder}</SandboxFolder>\n`;
       }
-      xml += `      <ReadOnly>${folder.ReadOnly === true ? 'true' : 'false'}</ReadOnly>\n`;
-      xml += '    </MappedFolder>\n';
+      xml += `      <ReadOnly>${
+        folder.ReadOnly === true ? "true" : "false"
+      }</ReadOnly>\n`;
+      xml += "    </MappedFolder>\n";
     }
-    xml += '  </MappedFolders>\n';
+    xml += "  </MappedFolders>\n";
   }
 
-  if (config.value.LogonCommand && config.value.LogonCommand.trim() !== '') {
-    xml += '  <LogonCommand>\n';
+  if (config.value.LogonCommand && config.value.LogonCommand.trim() !== "") {
+    xml += "  <LogonCommand>\n";
     xml += `    <Command>${config.value.LogonCommand}</Command>\n`;
-    xml += '  </LogonCommand>\n';
+    xml += "  </LogonCommand>\n";
   }
 
   xml += "</Configuration>";

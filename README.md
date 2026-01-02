@@ -61,3 +61,5 @@ The application includes pre-configured profiles for different use cases:
 - [ ] Add toast notification after copying to clipboard
 - [ ] Add Icons to areas
 - [ ] Add more pre-defined profiles based on community feedback
+- [ ] Create tests
+- [ ] 
