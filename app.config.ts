@@ -3,9 +3,9 @@ export default defineAppConfig({
     experimental: {
       componentDetection: true,
     },
-    
+
     colors: {
-      primary: "green",
+      primary: "emerald",
       neutral: "slate",
     },
   },
