@@ -50,3 +50,10 @@ The application includes pre-configured profiles for different use cases:
 
 ## Made with
 - Nuxt + NuxtUI
+
+## TODO
+
+- [ ] Change memory input values by multiples (to match memory multiples)
+- [ ] Make it easier to drag & drop environment variables into input fields
+- [ ] Add XML syntax highlighting theme for generated configuration
+- [ ] Add toast notification after copying to clipboard

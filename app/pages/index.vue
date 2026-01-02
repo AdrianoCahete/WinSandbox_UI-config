@@ -99,7 +99,6 @@
               <!-- Memory Option -->
               <div class="pb-6">
                 <div class="flex items-center justify-between mb-2">
-                  <!-- TODO: Change values by multiple (to match memory multiples) -->
                   <label
                     class="text-base font-medium text-gray-900 dark:text-white"
                   >
@@ -153,7 +152,6 @@
                   :description="propertiesData.MappedFolders.warning"
                 />
                 <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">
-                  <!-- TODO: Make it easier drag&drop the variables into the input fields -->
                   💡 Windows 11 23H2+: You can use environment variables like %USERPROFILE%, %TEMP%, %ProgramFiles%
                 </p>
 
@@ -281,7 +279,6 @@
             </template>
 
             <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-              <!-- TODO: Add a XML theme here -->
               <pre
                 class="text-sm text-gray-800 dark:text-gray-200 font-mono overflow-x-auto whitespace-pre-wrap"
                 >{{ generatedConfig }}</pre
@@ -297,7 +294,6 @@
                 >
                   Copy to Clipboard
                 </UButton>
-                <!-- TODO: Add a toast after copied -->
               </div>
             </template>
           </UCard>
@@ -516,7 +512,6 @@ const generatedConfig = computed(() => {
 const copyToClipboard = async () => {
   try {
     await navigator.clipboard.writeText(generatedConfig.value);
-    // TODO: Add a toaster
     console.log("Configuration copied to clipboard!");
   } catch (err) {
     console.error("Failed to copy:", err);
