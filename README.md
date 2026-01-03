@@ -60,5 +60,6 @@ The application includes pre-configured profiles for different use cases:
 - [ ] Add XML syntax highlighting theme for generated configuration
 - [ ] Add toast notification after copying to clipboard
 - [ ] Add Icons to areas
+- [ ] Add a way to share the configs using the param on url
 - [ ] Add more pre-defined profiles based on community feedback
 - [ ] Create tests
