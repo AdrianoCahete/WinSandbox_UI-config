@@ -4,6 +4,7 @@
       <div class="space-y-6">
         <div
           v-for="(propData, propKey) in toggleProperties"
+          :id="`opt-${propKey}`"
           :key="propKey"
           class="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0"
         >
@@ -22,7 +23,7 @@
           </div>
         </div>
 
-        <div class="pb-0">
+        <div id="opt-Memory" class="pb-0">
           <div class="flex items-center justify-between mb-2">
             <label class="text-base font-medium text-gray-900 dark:text-white">
               {{ propertiesData.MemoryInMB.label }}
@@ -41,7 +42,7 @@
           </p>
         </div>
 
-        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+        <div id="opt-MappedFolders" class="border-t border-gray-200 dark:border-gray-700 pt-6">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-2">
               <label class="text-base font-medium text-gray-900 dark:text-white">
@@ -129,7 +130,7 @@
           </div>
         </div>
 
-        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+        <div id="opt-LogonCommand" class="border-t border-gray-200 dark:border-gray-700 pt-6">
           <div class="flex items-center gap-2 mb-2">
             <label class="text-base font-medium text-gray-900 dark:text-white">
               {{ propertiesData.LogonCommand.label }}
