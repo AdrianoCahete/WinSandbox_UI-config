@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
 
-  modules: ["@nuxt/ui"],
+  modules: ["@nuxt/ui", "nuxt-shiki"],
 
   future: {
     compatibilityVersion: 4,
@@ -27,6 +27,15 @@ export default defineNuxtConfig({
   router: {
     options: {
       scrollBehaviorType: "smooth",
+    },
+  },
+
+  shiki: {
+    bundledLangs: ["xml"],
+    bundledThemes: ["github-light", "material-theme-palenight"],
+    defaultTheme: {
+      light: "github-light",
+      dark: "material-theme-palenight",
     },
   },
 
