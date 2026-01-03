@@ -9,7 +9,7 @@
             size="lg"
             color="primary"
           >
-            Download Configuration (.wsb)
+            Download Config (.wsb)
           </UButton>
 
           <UButton

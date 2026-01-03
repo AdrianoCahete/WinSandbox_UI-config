@@ -6,7 +6,7 @@
       </template>
 
       <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-        <Shiki class="text-sm text-gray-800 dark:text-gray-200 font-mono overflow-x-auto whitespace-pre-wrap" lang="xml" :code="generatedConfig" />
+        <Shiki class="bg-gray-100 dark:bg-gray-800 overflow-x-auto whitespace-pre-wrap" lang="xml" :code="generatedConfig" />
       </div>
       <template #footer>
         <p class="text-muted text-xs">

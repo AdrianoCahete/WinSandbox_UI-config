@@ -45,7 +45,7 @@ The application includes pre-configured profiles for different use cases:
 **Profile Descriptions:**
 
 - **Default**: Microsoft's default Windows Sandbox configuration
-- **Balanced**: Balanced security with essential features enabled - recommended by me ¯\_(ツ)_/¯
+- **Balanced**: Balanced security with essential features enabled - recommended by me ¯\\_(ツ)_/¯
 - **Community**: Balanced configuration for general usage and testing (Based in nothing for now, I'll search most used config and update here)
 - **Secure**: Maximum security settings with minimal host interaction
 

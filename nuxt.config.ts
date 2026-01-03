@@ -32,10 +32,10 @@ export default defineNuxtConfig({
 
   shiki: {
     bundledLangs: ["xml"],
-    bundledThemes: ["github-light", "material-theme-palenight"],
+    bundledThemes: ["material-theme-palenight", "github-light"],
     defaultTheme: {
-      light: "github-light",
       dark: "material-theme-palenight",
+      light: "github-light",
     },
   },
 
